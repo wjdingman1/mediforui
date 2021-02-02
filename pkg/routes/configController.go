@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/wjdingman1/mediforui/pkg/config"
+	"github.com/wjdingman1/mediforui/pkg/error"
 )
 
 // LoadConfig loads all routes associated with the configController
@@ -17,8 +18,7 @@ func configHandler(c *gin.Context) {
 	conf, err := config.New()
 	log.Print("-- Retrieving configuration file --")
 	if err != nil {
-		log.Printf("ERROR retrieving configuration file %s", err)
-		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		error.HandleErrorResponse(c, err, 400)
 	}
 	c.JSON(http.StatusOK, conf.UI)
 }

@@ -4,6 +4,10 @@ import (
 	"github.com/spf13/viper"
 )
 
+var (
+	config Config
+)
+
 // Config contains configuration values for the REST API
 type Config struct {
 	ContainerRoot   string
@@ -34,17 +38,13 @@ type Facets struct {
 }
 
 func initViper() (Config, error) {
-	var config Config
-
 	viper.SetConfigName("config")
 	viper.SetConfigType("json")
 	viper.AddConfigPath("../../pkg/config")
-	err := viper.ReadInConfig()
-	if err != nil {
+	if err := viper.ReadInConfig(); err != nil {
 		return config, err
 	}
-
-	err = viper.Unmarshal(&config)
+	err := viper.Unmarshal(&config)
 	return config, err
 }
 
