@@ -1,6 +1,8 @@
 package config
 
 import (
+	"log"
+
 	"github.com/spf13/viper"
 )
 
@@ -10,12 +12,12 @@ var (
 
 // Config contains configuration values for the REST API
 type Config struct {
-	ContainerRoot   string
-	WorkingDir      string
-	WorkflowHost    string
-	WorkflowPort    string
-	CacheTTLSeconds int32
-	Port            string
+	ContainerRoot   string `mapstructure:"CONTAINER_ROOT"`
+	WorkingDir      string `mapstructure:"WORKING_DIR"`
+	WorkflowHost    string `mapstructure:"WORKFLOW_HOST"`
+	WorkflowPort    string `mapstructure:"WORKFLOW_PORT"`
+	CacheTTLSeconds int32  `mapstructure:"CACHE_TTL_SECONDS"`
+	Port            string `mapstructure:"PORT"`
 	UI              UI
 	Facets          []Facets
 }
@@ -38,13 +40,24 @@ type Facets struct {
 }
 
 func initViper() (Config, error) {
+	viper.AutomaticEnv()
+	viper.BindEnv("CONTAINER_ROOT")
+	viper.BindEnv("WORKING_DIR")
+	viper.BindEnv("WORKFLOW_HOST")
+	viper.BindEnv("WORKFLOW_PORT")
+	viper.BindEnv("CACHE_TTL_SECONDS")
+	viper.BindEnv("PORT")
+
 	viper.SetConfigName("config")
 	viper.SetConfigType("json")
-	viper.AddConfigPath("../../pkg/config")
+	viper.AddConfigPath(".")
+
 	if err := viper.ReadInConfig(); err != nil {
 		return config, err
 	}
 	err := viper.Unmarshal(&config)
+
+	log.Printf("%+v", config)
 	return config, err
 }
 
