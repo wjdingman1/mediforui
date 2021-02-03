@@ -18,8 +18,19 @@ type Config struct {
 	WorkflowPort    string `mapstructure:"WORKFLOW_PORT"`
 	CacheTTLSeconds int32  `mapstructure:"CACHE_TTL_SECONDS"`
 	Port            string `mapstructure:"PORT"`
-	UI              UI
-	Facets          []Facets
+	UI              struct {
+		DefaultFuserID string `json:"defaultFuserId"`
+		EnableGroups   bool   `json:"enableGroups"`
+		EnableDelete   bool   `json:"enableDelete"`
+		UnknownUsers   string `json:"unknownUsers"`
+		GroupPrefix    string `json:"groupPrefix"`
+		UserTagPrefix  string `json:"userTagPrefix"`
+		TagPrefixFlag  string `json:"tagPrefixFlag"`
+	} `json:"UI"`
+	Facets []struct {
+		Name        string `json:"name"`
+		Description string `json:"description"`
+	} `json:"Facets"`
 }
 
 // UI configuration constants for UI fields
@@ -46,6 +57,7 @@ func initViper() (Config, error) {
 	viper.BindEnv("WORKFLOW_HOST")
 	viper.BindEnv("WORKFLOW_PORT")
 	viper.BindEnv("CACHE_TTL_SECONDS")
+	viper.BindEnv("groupPrefix")
 	viper.BindEnv("PORT")
 
 	viper.SetConfigName("config")
