@@ -1,19 +1,19 @@
 {
-  "CONTAINER_ROOT": "/medifor",
-  "WORKING_DIR": "/tmp/analyticsui",
-  "WORKFLOW_HOST": "localhost",
-  "WORKFLOW_PORT": "50051",
+  "CONTAINERROOT": "/medifor",
+  "WORKINGDIR": "/tmp/analyticsui",
+  "WORKFLOWHOST": "localhost",
+  "WORKFLOWPORT": "50051",
   "PORT": "3000",
-  "CACHE_TTL_SECONDS": 600,
+  "CACHETTLSECONDS": 600,
   "UI": {
-    "defaultFuserId": "",
-    "enableGroups": false,
-    "enableDelete": true,
-    "unknownUsers": "allow",
-    "groupPrefix": "medifor-uigrp-",
-    "groupTagPrefix": "group",
-    "userTagPrefix": "user",
-    "tagPrefixFlag": "__"
+    "DEFAULTFUSERID": "",
+    "ENABLEGROUPS": false,
+    "ENABLEDELETE": true,
+    "UNKNOWNUSERS": "allow",
+    "GROUPPREFIX": "medifor-uigrp-",
+    "GROUPTAGPREFIX": "group",
+    "USERTAGPREFIX": "user",
+    "TAGPREFIXFLAG": "__"
   },
   "FACETS": [
     {

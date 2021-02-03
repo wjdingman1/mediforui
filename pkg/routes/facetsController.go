@@ -21,6 +21,6 @@ func facetsHandler(c *gin.Context) {
 	if err != nil {
 		error.HandleErrorResponse(c, err, 400)
 	}
-	c.JSON(http.StatusOK, conf.Facets)
+	c.JSON(http.StatusOK, conf)
 
 }
