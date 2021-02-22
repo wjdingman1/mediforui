@@ -9,6 +9,8 @@ import (
 	e "github.com/wjdingman1/mediforui/pkg/error"
 )
 
+var ui *UI
+
 // UI configuration constants for the client
 type UI struct {
 	DefaultFuserID string `json:"defaultFuserId"`
@@ -28,27 +30,26 @@ func LoadConfig(e *gin.Engine) {
 // This endpoint only returns the UI component of the configuration
 func configUIHandler(c *gin.Context) {
 	ui, err := newUI()
-	log.Print("-- Retrieving configuration file --")
+	log.Print("-- Retrieving UI configuration file --")
 	if err != nil {
 		e.HandleErrorResponse(c, err, 400)
 	}
 	c.JSON(http.StatusOK, ui)
 }
 
-// Create and return a new UI struct pointer
+// Unmarshall the ui config from the viper config object and return to client
 func newUI() (*UI, error) {
+	// If ui config has aready been unmarshalledm return it
+	if ui != nil {
+		return ui, nil
+	}
 	conf, err := config.New()
 	if err != nil {
-		return &UI{}, err
+		return ui, err
 	}
-	return &UI{
-		DefaultFuserID: conf.GetString("UI.DEFAULTFUSERID"),
-		EnableGroups:   conf.GetBool("UI.ENABLEGROUPS"),
-		EnableDelete:   conf.GetBool("UI.ENABLEDELETE"),
-		UnknownUsers:   conf.GetString("UI.UNKNOWNUSERS"),
-		GroupPrefix:    conf.GetString("UI.GROUPPREFIX"),
-		UserTagPrefix:  conf.GetString("UI.USERTAGPREFIX"),
-		TagPrefixFlag:  conf.GetString("UI.TAGPREFIXFLAG"),
-	}, nil
+	if err = conf.UnmarshalKey(("UI"), &ui); err != nil {
+		return ui, err
+	}
+	return ui, nil
 
 }
