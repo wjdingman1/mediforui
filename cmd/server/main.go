@@ -16,5 +16,6 @@ func main() {
 	r := gin.Default()
 	routes.LoadConfig(r)
 	routes.LoadFacets(r)
+	routes.LoadUser(r)
 	r.Run(strings.Join([]string{":", conf.GetString("PORT")}, ""))
 }
