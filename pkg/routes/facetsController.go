@@ -10,12 +10,12 @@ import (
 	e "github.com/wjdingman1/mediforui/pkg/error"
 )
 
-//
+var facets *[]Facets
 
 // Facets configuration constants for the client
 type Facets struct {
 	Name        string `json:"name"`
-	Description string `json:"Description"`
+	Description string `json:"description"`
 }
 
 // LoadFacets loads all the routes associated with the facetsController
@@ -33,20 +33,18 @@ func configFacetsHandler(c *gin.Context) {
 
 }
 
+// Unmarshall the facets from the viper config object and return to client
 func newFacets() (*[]Facets, error) {
-	var facets *[]Facets
+	// If facets has already been unmarshalled, return it
+	if facets != nil {
+		return facets, nil
+	}
 	conf, err := config.New()
 	if err != nil {
 		return facets, err
 	}
-
-	// Viper.Get returns interface{}, assert to array of interface and assert element to map
-	// https://stackoverflow.com/a/59759138
-	for _, f := range conf.Get("FACETS").([]interface{}) {
-		log.Print(f.(map[string]interface{})["name"])
-
+	if err = conf.UnmarshalKey(("FACETS"), &facets); err != nil {
+		return facets, err
 	}
-
 	return facets, nil
-
 }
