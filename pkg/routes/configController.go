@@ -27,7 +27,7 @@ func LoadConfig(e *gin.Engine) {
 	e.GET("/config", configUIHandler)
 }
 
-// This endpoint only returns the UI component of the configuration
+// configUIHandler returns an HTTP response with the UI configuration info
 func configUIHandler(c *gin.Context) {
 	ui, err := newUI()
 	log.Print("-- Retrieving UI configuration file --")
@@ -37,7 +37,7 @@ func configUIHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, ui)
 }
 
-// Unmarshall the ui config from the viper config object and return to client
+// Unmarshall the UI config from the viper config object and return
 func newUI() (*UI, error) {
 	// If ui config has aready been unmarshalledm return it
 	if ui != nil {

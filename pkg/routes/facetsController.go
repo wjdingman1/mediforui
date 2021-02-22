@@ -23,6 +23,7 @@ func LoadFacets(e *gin.Engine) {
 	e.GET("/facets", configFacetsHandler)
 }
 
+// configFacetsHandlers returns an HTTP response with the Facets configuration info
 func configFacetsHandler(c *gin.Context) {
 	facets, err := newFacets()
 	log.Print("-- Retrieving facets list --")
