@@ -37,9 +37,9 @@ func configUIHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, ui)
 }
 
-// Unmarshall the UI config from the viper config object and return
+// unmarshall the UI config from the viper config object and return
 func newUI() (*UI, error) {
-	// If ui config has aready been unmarshalledm return it
+	// If ui config has aready been unmarshalled return it
 	if ui != nil {
 		return ui, nil
 	}

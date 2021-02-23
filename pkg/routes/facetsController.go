@@ -33,7 +33,7 @@ func configFacetsHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, facets)
 }
 
-// Unmarshall the facets from the viper config object and return to client
+// Unmarshall the facets from the viper config object and return
 func newFacets() (*[]Facets, error) {
 	// If facets has already been unmarshalled, return it
 	if facets != nil {

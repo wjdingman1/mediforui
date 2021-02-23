@@ -15,5 +15,4 @@ func HandleErrorResponse(c *gin.Context, err error, status int) {
 // PrintError logs the error to the console
 func PrintError(err error) {
 	log.Printf("-- ERROR: %s --", err)
-
 }

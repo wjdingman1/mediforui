@@ -31,7 +31,6 @@ func userHandler(c *gin.Context) {
 		e.HandleErrorResponse(c, err, 400)
 	}
 	c.JSON(http.StatusOK, user)
-
 }
 
 // extract the user information from the request headers and return
@@ -42,7 +41,6 @@ func newUser(c *gin.Context) (*User, error) {
 		Name:        string(c.Request.Header.Get("name")),
 		Groups:      strings.Split(c.Request.Header.Get("groups"), ","),
 	}, nil
-
 }
 
 // checkAdmin checks the request headers to see if the user is in the admin group
@@ -72,5 +70,4 @@ func checkAdmin(groups []string) bool {
 	}
 	// if none of the groups are 'admin' return false
 	return false
-
 }

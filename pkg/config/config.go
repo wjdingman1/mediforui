@@ -13,7 +13,7 @@ func initViper() (*viper.Viper, error) {
 	vip.SetConfigType("json")
 	vip.AddConfigPath(".")
 	// This allows for nested config values to be passed in as env vars with underscores
-	// UI.ENABLEGROUPS -> UI_ENABLEGROUPS
+	// UI_ENABLEGROUPS -> UI.ENABLEGROUPS
 	vip.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 	if err := vip.ReadInConfig(); err != nil {
 		return vip, err
