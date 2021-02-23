@@ -7,7 +7,7 @@ import (
 	"github.com/wjdingman1/mediforui/pkg/config"
 )
 
-/* workingDir is the current working directory of the Node application
+/* workingDir is the directory where the HTTP server will look for static assets
  * when running in production the workingDir and containerRoot will be the same */
 var (
 	conf          = initConfig()
