@@ -30,12 +30,10 @@ func init() {
 	appMap := structs.Map(applicationDirectories)
 
 	for _, directory := range appMap {
-		if _, err := os.Stat(directory.(string)); os.IsNotExist(err) {
-			if err = os.MkdirAll(directory.(string), 0775); err != nil {
-				log.Printf("Error creating directory - %s", directory.(string))
-			} else {
-				log.Printf("Creating application directory - %s", directory.(string))
-			}
+		if err := os.MkdirAll(directory.(string), 0775); err != nil {
+			log.Printf("Error creating directory - %s", directory.(string))
+		} else {
+			log.Printf("Creating application directory - %s", directory.(string))
 		}
 	}
 }
