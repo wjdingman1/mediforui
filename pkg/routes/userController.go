@@ -36,8 +36,6 @@ func userHandler(c *gin.Context) {
 
 // extract the user information from the request headers and return
 func newUser(c *gin.Context) (*User, error) {
-	log.Printf("%+v", c.Request)
-
 	return &User{
 		Admin:       checkAdmin(strings.Split(c.Request.Header.Get("groups"), ",")),
 		DisplayName: string(c.Request.Header.Get("displayName")),
@@ -62,7 +60,6 @@ func checkAdmin(groups []string) bool {
 	// format the groups to exclude the groupPrefix
 	for _, group := range groups {
 		if strings.HasPrefix(group, groupPrefix) {
-			log.Print("here")
 			trimmedGroup := strings.Replace(group, groupPrefix, "", -1)
 			formattedGroups = append(formattedGroups, trimmedGroup)
 		}
@@ -73,6 +70,7 @@ func checkAdmin(groups []string) bool {
 			return true
 		}
 	}
+	// if none of the groups are 'admin' return false
 	return false
 
 }

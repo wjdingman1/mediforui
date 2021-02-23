@@ -31,7 +31,6 @@ func configFacetsHandler(c *gin.Context) {
 		e.HandleErrorResponse(c, err, 400)
 	}
 	c.JSON(http.StatusOK, facets)
-
 }
 
 // Unmarshall the facets from the viper config object and return to client
