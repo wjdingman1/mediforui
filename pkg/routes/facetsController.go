@@ -29,8 +29,9 @@ func configFacetsHandler(c *gin.Context) {
 	log.Print("-- Retrieving facets list --")
 	if err != nil {
 		e.HandleErrorResponse(c, err, 400)
+	} else {
+		c.JSON(http.StatusOK, facets)
 	}
-	c.JSON(http.StatusOK, facets)
 }
 
 // Unmarshall the facets from the viper config object and return

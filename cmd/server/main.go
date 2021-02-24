@@ -18,9 +18,10 @@ func main() {
 		panic("-- CONFIG NOT FOUND: SHUTTING DOWN --")
 	}
 	r := gin.Default()
+	routes.LoadUser(r)
 	routes.LoadConfig(r)
 	routes.LoadFacets(r)
-	routes.LoadUser(r)
+	routes.LoadAnalytics(r)
 	r.Run(strings.Join([]string{":", conf.GetString("PORT")}, ""))
 }
 
@@ -28,7 +29,6 @@ func main() {
 func init() {
 	applicationDirectories := directories.New().ApplicationDirectory
 	appMap := structs.Map(applicationDirectories)
-
 	for _, directory := range appMap {
 		if err := os.MkdirAll(directory.(string), 0775); err != nil {
 			log.Printf("Error creating directory - %s", directory.(string))

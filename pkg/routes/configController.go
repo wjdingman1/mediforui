@@ -33,8 +33,9 @@ func configUIHandler(c *gin.Context) {
 	log.Print("-- Retrieving UI configuration file --")
 	if err != nil {
 		e.HandleErrorResponse(c, err, 400)
+	} else {
+		c.JSON(http.StatusOK, ui)
 	}
-	c.JSON(http.StatusOK, ui)
 }
 
 // unmarshall the UI config from the viper config object and return

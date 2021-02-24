@@ -29,8 +29,9 @@ func userHandler(c *gin.Context) {
 	log.Print("-- Retrieving User configuration info --")
 	if err != nil {
 		e.HandleErrorResponse(c, err, 400)
+	} else {
+		c.JSON(http.StatusOK, user)
 	}
-	c.JSON(http.StatusOK, user)
 }
 
 // extract the user information from the request headers and return
@@ -54,7 +55,6 @@ func checkAdmin(groups []string) bool {
 		return false
 	}
 	groupPrefix := config.Get("UI.GROUPPREFIX").(string)
-
 	// format the groups to exclude the groupPrefix
 	for _, group := range groups {
 		if strings.HasPrefix(group, groupPrefix) {
